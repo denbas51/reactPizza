@@ -9,7 +9,7 @@ function Categories() {
       <ul>
         {PizzaCat.map((cat, i) => (
           <li
-            key={cat.id}
+            key={cat}
             onClick={() => setActiveIndex(i)}
             className={activeIndex === i ? "active" : ""}
           >

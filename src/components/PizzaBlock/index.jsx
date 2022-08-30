@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { typeNames } from "../assets/constans"
+import { typeNames } from "../../assets/constans"
 
 function PizzaBlock({ title, price, imageUrl, types, sizes }) {
   let [pizzaCount, setPizzaCount] = useState(0)
@@ -17,7 +17,7 @@ function PizzaBlock({ title, price, imageUrl, types, sizes }) {
         <ul>
           {types.map((type, i) => (
             <li
-              key={type.id}
+              key={type}
               onClick={() => setActiveIndex(i)}
               className={activeIndex === i ? "active" : ""}
             >
@@ -28,7 +28,7 @@ function PizzaBlock({ title, price, imageUrl, types, sizes }) {
         <ul>
           {sizes.map((size, i) => (
             <li
-              key={size.id}
+              key={size}
               onClick={() => setActiveSize(i)}
               className={activeSize === i ? "active" : ""}
             >
