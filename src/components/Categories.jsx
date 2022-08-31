@@ -1,17 +1,14 @@
-import { useState } from "react"
 import { PizzaCat } from "../assets/constans"
 
-function Categories() {
-  const [activeIndex, setActiveIndex] = useState(0)
-
+function Categories({ value, onChangeCategory }) {
   return (
     <div className="categories">
       <ul>
         {PizzaCat.map((cat, i) => (
           <li
             key={cat}
-            onClick={() => setActiveIndex(i)}
-            className={activeIndex === i ? "active" : ""}
+            onClick={() => onChangeCategory(i)}
+            className={value === i ? "active" : ""}
           >
             {cat}
           </li>

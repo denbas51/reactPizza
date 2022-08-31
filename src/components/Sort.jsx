@@ -1,13 +1,11 @@
 import { useState } from "react"
 import { list } from "../assets/constans"
 
-function Sort() {
+function Sort({ value, onChangeSort }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const sortName = list[activeIndex]
 
   const onClickListItem = (i) => {
-    setActiveIndex(i)
+    onChangeSort(i)
     setIsOpen(false)
   }
   return (
@@ -26,18 +24,18 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen(!isOpen)}>{sortName}</span>
+        <span onClick={() => setIsOpen(!isOpen)}>{value.name}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
           <ul>
-            {list.map((name, i) => (
+            {list.map((obj, i) => (
               <li
-                key={name.id}
-                onClick={() => onClickListItem(i)}
-                className={activeIndex === i ? "active" : ""}
+                key={obj.id}
+                onClick={() => onClickListItem(obj)}
+                className={value.name === obj.name ? "active" : ""}
               >
-                {name}
+                {obj.name}
               </li>
             ))}
           </ul>

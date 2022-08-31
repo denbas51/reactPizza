@@ -7,21 +7,37 @@ import { useEffect, useState } from "react"
 function Home() {
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [categoryId, setCategoryId] = useState(0)
+  const [sortType, setSortType] = useState({
+    name: "популярности",
+    sortProp: "rating",
+  })
 
   useEffect(() => {
-    fetch("https://630dd63eb37c364eb70c9cc4.mockapi.io/items")
+    setIsLoading(true)
+    fetch(
+      `https://630dd63eb37c364eb70c9cc4.mockapi.io/items?${
+        categoryId > 0 ? `category=${categoryId}` : ""
+      }&sortBy=${sortType.sortProp}&order=${
+        sortType.sortOrder ? sortType.sortOrder : "desc"
+      }`
+    )
       .then((res) => res.json())
       .then((data) => {
         setItems(data)
         setIsLoading(false)
       })
     window.scrollTo(0, 0)
-  }, [])
+  }, [categoryId, sortType])
+
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories
+          value={categoryId}
+          onChangeCategory={(i) => setCategoryId(i)}
+        />
+        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
