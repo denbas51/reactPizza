@@ -1,11 +1,14 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 import { list } from "../assets/constans"
+import { setSort } from "../redux/slices/filterSlice"
 
-function Sort({ value, onChangeSort }) {
+function Sort({ value }) {
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
 
   const onClickListItem = (i) => {
-    onChangeSort(i)
+    dispatch(setSort(i))
     setIsOpen(false)
   }
   return (
@@ -31,7 +34,7 @@ function Sort({ value, onChangeSort }) {
           <ul>
             {list.map((obj, i) => (
               <li
-                key={obj.id}
+                key={i}
                 onClick={() => onClickListItem(obj)}
                 className={value.name === obj.name ? "active" : ""}
               >
