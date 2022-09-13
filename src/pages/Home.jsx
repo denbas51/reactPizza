@@ -2,16 +2,16 @@ import Categories from "../components/Categories"
 import Sort from "../components/Sort"
 import PizzaBlock from "../components/PizzaBlock"
 import Skeleton from "../components/PizzaBlock/Sceleton"
-import { useContext, useEffect } from "react"
+import { useEffect } from "react"
 import Pagination from "../components/Pagination"
-import { SearchContext } from "../App"
 import { useSelector, useDispatch } from "react-redux"
 import { setCurrentPage } from "../redux/slices/filterSlice"
 import { fetchPizzas } from "../redux/slices/pizzaSlice"
 
 function Home() {
-  const { searchValue } = useContext(SearchContext)
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter)
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
+    (state) => state.filter
+  )
   const { items, status } = useSelector((state) => state.pizza)
   const dispatch = useDispatch()
 
@@ -26,9 +26,10 @@ function Home() {
 
   const setItems = async () => {
     const order = sort.sortOrder ? sort.sortOrder : "desc"
-    const category = categoryId > 0 ? `category=${categoryId}` : ""
-    const search = searchValue ? `search=${searchValue}` : ""
+    const category = categoryId > 0 ? `&category=${categoryId}` : ""
+    const search = searchValue ? `&search=${searchValue}` : ""
     const newSort = sort.sortProp
+    console.log(order)
 
     dispatch(
       fetchPizzas({
@@ -45,7 +46,7 @@ function Home() {
 
   useEffect(() => {
     setItems()
-  }, [categoryId, sort.sortProp, searchValue, currentPage])
+  }, [categoryId, sort.sortProp, searchValue, currentPage, sort.sortOrder])
 
   return (
     <div className="container">
