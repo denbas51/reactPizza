@@ -1,0 +1,57 @@
+@import "../variables.scss";
+
+.full-pizza {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 715px) {
+    flex-direction: column;
+  }
+
+  img {
+    width: 480px;
+    height: 480px;
+    margin-left: 40px;
+
+    @media (max-width: 885px) {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+
+    h2 {
+      padding-bottom: 15px;
+    }
+
+    p {
+      padding: 15px 0;
+    }
+
+    .pizza-block__price {
+      margin-right: 10px;
+    }
+
+    .text_container {
+      width: 70%;
+      @media (max-width: 1038px) {
+        width: 100%;
+      }
+      @media (max-width: 940px) {
+        width: 100%;
+        font-size: 13px;
+      }
+      @media (max-width: 715px) {
+        width: 70%;
+        font-size: 15px;
+      }
+    }
+  }
+}

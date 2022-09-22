@@ -7,6 +7,7 @@ import Pagination from "../components/Pagination"
 import { useSelector, useDispatch } from "react-redux"
 import { setCurrentPage } from "../redux/slices/filterSlice"
 import { fetchPizzas } from "../redux/slices/pizzaSlice"
+import { Link } from "react-router-dom"
 
 function Home() {
   const { categoryId, sort, currentPage, searchValue } = useSelector(
@@ -15,7 +16,11 @@ function Home() {
   const { items, status } = useSelector((state) => state.pizza)
   const dispatch = useDispatch()
 
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+  const pizzas = items.map((obj) => (
+    <Link key={obj.id} to={`pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link>
+  ))
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ))
@@ -29,7 +34,6 @@ function Home() {
     const category = categoryId > 0 ? `&category=${categoryId}` : ""
     const search = searchValue ? `&search=${searchValue}` : ""
     const newSort = sort.sortProp
-    console.log(order)
 
     dispatch(
       fetchPizzas({

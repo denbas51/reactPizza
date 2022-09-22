@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import NotFounded from "./pages/NotFounded"
 import Cart from "./pages/Cart"
 import { Routes, Route } from "react-router-dom"
+import FullPizza from "./components/FullPizza"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="/pizza/:id" element={<FullPizza />} />
           <Route path="*" element={<NotFounded />} />
         </Routes>
       </div>
