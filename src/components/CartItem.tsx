@@ -1,20 +1,44 @@
 import { useDispatch } from "react-redux"
 import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice"
 
-function CartItem({ id, title, type, size, price, count, imageUrl }) {
+type CartItemProps = {
+  id: string
+  title: string
+  type: string
+  size: number
+  price: number
+  count: number
+  imageUrl: string
+}
+
+function CartItem({
+  id,
+  title,
+  type,
+  size,
+  price,
+  count,
+  imageUrl,
+}: CartItemProps) {
   const dispatch = useDispatch()
   const totalPrice = price * count
   const onClickPlus = () => {
     dispatch(
       addItem({
         id,
+        title,
+        type,
+        size,
+        price,
+        count,
+        imageUrl,
       })
     )
   }
 
   const onClickMinus = () => {
     if (count > 0) {
-      dispatch(minusItem({ id, price }))
+      dispatch(minusItem({ id, title, type, size, price, count, imageUrl }))
     } else {
       dispatch(removeItem({ id, totalPrice }))
     }

@@ -1,8 +1,13 @@
+import React from "react"
 import { PizzaCat } from "../assets/constans"
 import { useDispatch } from "react-redux"
 import { setCategoryId } from "../redux/slices/filterSlice"
 
-function Categories({ value }) {
+type CategoriesProps = {
+  value: number
+}
+
+const Categories: React.FC<CategoriesProps> = ({ value }) => {
   const dispatch = useDispatch()
   return (
     <div className="categories">

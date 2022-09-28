@@ -6,27 +6,23 @@ import { useEffect } from "react"
 import Pagination from "../components/Pagination"
 import { useSelector, useDispatch } from "react-redux"
 import { setCurrentPage } from "../redux/slices/filterSlice"
-import { fetchPizzas } from "../redux/slices/pizzaSlice"
-import { Link } from "react-router-dom"
+import { fetchPizzas, PizzaItem } from "../redux/slices/pizzaSlice"
+import { RootState } from "../redux/store"
 
 function Home() {
   const { categoryId, sort, currentPage, searchValue } = useSelector(
-    (state) => state.filter
+    (state: RootState) => state.filter
   )
-  const { items, status } = useSelector((state) => state.pizza)
+  const { items, status } = useSelector((state: RootState) => state.pizza)
   const dispatch = useDispatch()
 
-  const pizzas = items.map((obj) => (
-    <Link key={obj.id} to={`pizza/${obj.id}`}>
-      <PizzaBlock {...obj} />
-    </Link>
-  ))
+  const pizzas = items.map((obj: PizzaItem) => <PizzaBlock {...obj} />)
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ))
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number))
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page))
   }
 
   const setItems = async () => {
@@ -36,6 +32,7 @@ function Home() {
     const newSort = sort.sortProp
 
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         order,
         category,

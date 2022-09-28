@@ -3,12 +3,16 @@ import { useDispatch, useSelector } from "react-redux"
 import CartItem from "../components/CartItem"
 import { clearItems } from "../redux/slices/cartSlice"
 import CartEmpty from "../components/CartEmpty"
+import { RootState } from "../redux/store"
 
 function Cart() {
   const dispatch = useDispatch()
-  const cartItems = useSelector((state) => state.cart.items)
-  const { totalPrice, items } = useSelector((state) => state.cart)
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+  const cartItems = useSelector((state: RootState) => state.cart.items)
+  const { totalPrice, items } = useSelector((state: RootState) => state.cart)
+  const totalCount = items.reduce(
+    (sum: number, item: any) => sum + item.count,
+    0
+  )
 
   if (!totalPrice) {
     return <CartEmpty />
@@ -92,7 +96,7 @@ function Cart() {
           </div>
         </div>
         <div className="content__items">
-          {cartItems.map((item) => (
+          {cartItems.map((item: any) => (
             <CartItem key={item.id} {...item} />
           ))}
         </div>

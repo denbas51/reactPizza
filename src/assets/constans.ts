@@ -8,7 +8,14 @@ export const PizzaCat = [
 ]
 
 export const typeNames = ["тонкое", "традиционное"]
-export const list = [
+
+export type SortItem = {
+  name: string
+  sortProp: string
+  sortOrder?: string
+}
+
+export const list: SortItem[] = [
   { name: "популярности", sortProp: "rating" },
   { name: "увеличении цены", sortProp: "price", sortOrder: "desc" },
   { name: "уменьшении цены", sortProp: "price", sortOrder: "asc" },

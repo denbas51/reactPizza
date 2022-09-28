@@ -3,29 +3,45 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { typeNames } from "../../assets/constans"
 import { useDispatch, useSelector } from "react-redux"
-import { addItem } from "../../redux/slices/cartSlice"
+import { addItem, CartItem } from "../../redux/slices/cartSlice"
+import { RootState } from "../../redux/store"
 
 function FullPizza() {
-  const [pizza, setPizza] = useState()
+  const [pizza, setPizza] = useState<{
+    id: string
+    title: string
+    price: number
+    imageUrl: string
+    sizes: number[]
+    types: number[]
+  }>({
+    id: "",
+    title: "",
+    price: 0,
+    imageUrl: "",
+    sizes: [26, 30, 40],
+    types: [0, 1],
+  })
   const [open, setOpen] = useState(false)
   const { id } = useParams()
   const navigate = useNavigate()
   const [activeIndex, setActiveIndex] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
   const dispatch = useDispatch()
-  const cartItem = useSelector((state) =>
+  const cartItem = useSelector((state: RootState) =>
     state.cart.items.find((obj) => obj.id === id)
   )
   const addedCount = cartItem ? cartItem.count : 0
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id: pizza.id,
       title: pizza.title,
       price: pizza.price,
       imageUrl: pizza.imageUrl,
       type: typeNames[activeIndex],
       size: pizza.sizes[activeSize],
+      count: 0,
     }
     dispatch(addItem(item))
   }

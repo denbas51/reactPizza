@@ -1,21 +1,34 @@
-import { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { list } from "../assets/constans"
 import { setSort } from "../redux/slices/filterSlice"
+import { SortItem } from "../assets/constans"
 
-function Sort({ value }) {
+type SortProps = {
+  value: {
+    name: string
+    sortProp: string
+  }
+}
+
+type PopupClick = MouseEvent & {
+  path: Node[]
+}
+
+const Sort: React.FC<SortProps> = ({ value }) => {
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
-  const sortRef = useRef()
+  const sortRef = useRef<HTMLDivElement>(null)
 
-  const onClickListItem = (i) => {
+  const onClickListItem = (i: SortItem) => {
     dispatch(setSort(i))
     setIsOpen(false)
   }
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setIsOpen(false)
       }
     }
