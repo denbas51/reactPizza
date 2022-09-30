@@ -7,8 +7,9 @@ type CategoriesProps = {
   value: number
 }
 
-const Categories: React.FC<CategoriesProps> = ({ value }) => {
+const Categories: React.FC<CategoriesProps> = React.memo(({ value }) => {
   const dispatch = useDispatch()
+
   return (
     <div className="categories">
       <ul>
@@ -24,6 +25,6 @@ const Categories: React.FC<CategoriesProps> = ({ value }) => {
       </ul>
     </div>
   )
-}
+})
 
 export default Categories

@@ -76,24 +76,6 @@ export const pizzaSlice = createSlice({
       state.error = action.payload
     })
   },
-
-  // extraReducers: {
-  //   [fetchPizzas.pending]: (state) => {
-  //     state.items = []
-  //     state.status = "loading"
-  //     state.error = ""
-  //   },
-  //   [fetchPizzas.fulfilled]: (state, action) => {
-  //     state.items = action.payload
-  //     state.status = "success"
-  //     state.error = ""
-  //   },
-  //   [fetchPizzas.rejected]: (state, action) => {
-  //     state.items = []
-  //     state.status = "error"
-  //     state.error = action.payload
-  //   },
-  // },
 })
 
 export const {} = pizzaSlice.actions

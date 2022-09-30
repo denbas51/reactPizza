@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import pizzaLogo from "../assets/img/pizza-logo.svg"
 import Search from "./Search"
 import { RootState } from "../redux/store"
+import { useEffect } from "react"
 
 function Header() {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart)
@@ -11,6 +12,11 @@ function Header() {
     0
   )
   const location = useLocation()
+
+  useEffect(() => {
+    const json = JSON.stringify(items)
+    localStorage.setItem("cart", json)
+  }, [items])
   return (
     <div className="header">
       <div className="container">

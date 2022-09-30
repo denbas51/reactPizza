@@ -2,28 +2,30 @@ import Categories from "../components/Categories"
 import Sort from "../components/Sort"
 import PizzaBlock from "../components/PizzaBlock"
 import Skeleton from "../components/PizzaBlock/Sceleton"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import Pagination from "../components/Pagination"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import { setCurrentPage } from "../redux/slices/filterSlice"
 import { fetchPizzas, PizzaItem } from "../redux/slices/pizzaSlice"
-import { RootState } from "../redux/store"
+import { RootState, useAppDispatch } from "../redux/store"
 
 function Home() {
   const { categoryId, sort, currentPage, searchValue } = useSelector(
     (state: RootState) => state.filter
   )
   const { items, status } = useSelector((state: RootState) => state.pizza)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  const pizzas = items.map((obj: PizzaItem) => <PizzaBlock {...obj} />)
+  const pizzas = items.map((obj: PizzaItem) => (
+    <PizzaBlock key={obj.id} {...obj} />
+  ))
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ))
 
-  const onChangePage = (page: number) => {
+  const onChangePage = useCallback((page: number) => {
     dispatch(setCurrentPage(page))
-  }
+  }, [])
 
   const setItems = async () => {
     const order = sort.sortOrder ? sort.sortOrder : "desc"
@@ -32,7 +34,6 @@ function Home() {
     const newSort = sort.sortProp
 
     dispatch(
-      //@ts-ignore
       fetchPizzas({
         order,
         category,
